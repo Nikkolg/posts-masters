@@ -1,2 +1,2 @@
-# postsMasters
+# posts-masters
 Master Class Posts
