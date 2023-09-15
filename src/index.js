@@ -15,7 +15,7 @@ import { EditPost } from './pages/posts/edit';
 import { AddPost } from './pages/posts/add';
 import { Auth } from './pages/auth';
 import { Registration } from './pages/registration';
-import { store } from './store/store'
+import { store } from './redux/store'
 
 /**
  * Главная - / 
