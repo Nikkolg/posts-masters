@@ -1,12 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import App from './App';
-import './index.css';
-import reportWebVitals from './reportWebVitals';
 import {
   createBrowserRouter,
   RouterProvider,
 } from "react-router-dom";
+import { Provider } from 'react-redux'
+import App from './App';
+import './index.css';
+import reportWebVitals from './reportWebVitals';
 import { Posts } from './pages/posts';
 import { Root } from './components/Root';
 import { DetailPost } from './pages/posts/detail';
@@ -14,6 +15,7 @@ import { EditPost } from './pages/posts/edit';
 import { AddPost } from './pages/posts/add';
 import { Auth } from './pages/auth';
 import { Registration } from './pages/registration';
+import { store } from './store/store'
 
 /**
  * Главная - / 
@@ -65,7 +67,9 @@ const router = createBrowserRouter([
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <Provider store={store}>
+      <RouterProvider router={router} />
+    </Provider>
   </React.StrictMode>
 );
 
