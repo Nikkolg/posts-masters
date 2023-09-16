@@ -1,21 +1,21 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
+import React from "react";
+import ReactDOM from "react-dom/client";
 import {
   createBrowserRouter,
   RouterProvider,
 } from "react-router-dom";
-import { Provider } from 'react-redux'
-import App from './App';
-import './index.css';
-import reportWebVitals from './reportWebVitals';
-import { PostsPage } from './pages/posts';
-import { Root } from './components/Root';
-import { DetailPostPage } from './pages/posts/detail';
-import { EditPostPage } from './pages/posts/edit';
-import { AddPostPage } from './pages/posts/add';
-import { AuthPage } from './pages/auth';
-import { RegistrationPage } from './pages/registration';
-import { store } from './redux/store'
+import { Provider } from "react-redux"
+import App from "./App";
+import "./index.css";
+import reportWebVitals from "./reportWebVitals";
+import { PostsPage } from "./pages/posts";
+import { Root } from "./components/Root";
+import { DetailPostPage } from "./pages/posts/detail";
+import { EditPostPage } from "./pages/posts/edit";
+import { AddPostPage } from "./pages/posts/add";
+import { AuthPage } from "./pages/auth";
+import { RegistrationPage } from "./pages/registration";
+import { store } from "./redux/store"
 
 /**
  * Главная - / 
