@@ -1,6 +1,6 @@
 import React from "react";
-import * as SC from "./styles";
 import { Link } from "../../../Link"
+import * as SC from "./styles";
 
 
 export const Post = ({post}) => (
