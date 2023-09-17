@@ -1,81 +1,94 @@
-import { createSlice } from "@reduxjs/toolkit"
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
+import { postsAPI } from "../../api/postsAPI"
 
 const initialState = {
-    list: [
-        {
-            id: 8,
-            title: 'Post 8',
-            image: 'https://cdnn11.img.sputnik.by/img/07e6/0a/1b/1068422950_0:0:1200:676_1920x0_80_0_0_db203c19f1168a18ef2e6b80ef9c49eb.jpg',
-            text: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Voluptates voluptatum harum, molestias porro ab laudantium perferendis laboriosam nemo itaque eius tempore voluptas obcaecati vel minus quas minima. Voluptas, quod magni!'
-        },
-        {
-            id: 7,
-            title: 'Post 7',
-            image: 'https://cdnn11.img.sputnik.by/img/07e6/0a/1b/1068422950_0:0:1200:676_1920x0_80_0_0_db203c19f1168a18ef2e6b80ef9c49eb.jpg',
-            text: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Voluptates voluptatum harum, molestias porro ab laudantium perferendis laboriosam nemo itaque eius tempore voluptas obcaecati vel minus quas minima. Voluptas, quod magni!'
-        },
-        {
-            id: 6,
-            title: 'Post 6',
-            image: 'https://cdnn11.img.sputnik.by/img/07e6/0a/1b/1068422950_0:0:1200:676_1920x0_80_0_0_db203c19f1168a18ef2e6b80ef9c49eb.jpg',
-            text: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Voluptates voluptatum harum, molestias porro ab laudantium perferendis laboriosam nemo itaque eius tempore voluptas obcaecati vel minus quas minima. Voluptas, quod magni!'
-        },
-        {
-            id: 5,
-            title: 'Post 5',
-            image: 'https://cdnn11.img.sputnik.by/img/07e6/0a/1b/1068422950_0:0:1200:676_1920x0_80_0_0_db203c19f1168a18ef2e6b80ef9c49eb.jpg',
-            text: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Voluptates voluptatum harum, molestias porro ab laudantium perferendis laboriosam nemo itaque eius tempore voluptas obcaecati vel minus quas minima. Voluptas, quod magni!'
-        },
-        {
-            id: 4,
-            title: 'Post 4',
-            image: 'https://cdnn11.img.sputnik.by/img/07e6/0a/1b/1068422950_0:0:1200:676_1920x0_80_0_0_db203c19f1168a18ef2e6b80ef9c49eb.jpg',
-            text: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Voluptates voluptatum harum, molestias porro ab laudantium perferendis laboriosam nemo itaque eius tempore voluptas obcaecati vel minus quas minima. Voluptas, quod magni!'
-        },
-        {
-            id: 3,
-            title: 'Post 3',
-            image: 'https://cdnn11.img.sputnik.by/img/07e6/0a/1b/1068422950_0:0:1200:676_1920x0_80_0_0_db203c19f1168a18ef2e6b80ef9c49eb.jpg',
-            text: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Voluptates voluptatum harum, molestias porro ab laudantium perferendis laboriosam nemo itaque eius tempore voluptas obcaecati vel minus quas minima. Voluptas, quod magni!'
-        },{
-            id: 2,
-            title: 'Post 2',
-            image: 'https://cdnn11.img.sputnik.by/img/07e6/0a/1b/1068422950_0:0:1200:676_1920x0_80_0_0_db203c19f1168a18ef2e6b80ef9c49eb.jpg',
-            text: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Voluptates voluptatum harum, molestias porro ab laudantium perferendis laboriosam nemo itaque eius tempore voluptas obcaecati vel minus quas minima. Voluptas, quod magni!'
-        },
-        {
-            id: 1,
-            title: 'Post 1',
-            image: 'https://cdnn11.img.sputnik.by/img/07e6/0a/1b/1068422950_0:0:1200:676_1920x0_80_0_0_db203c19f1168a18ef2e6b80ef9c49eb.jpg',
-            text: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Voluptates voluptatum harum, molestias porro ab laudantium perferendis laboriosam nemo itaque eius tempore voluptas obcaecati vel minus quas minima. Voluptas, quod magni!'
-        },
-    ],
-    postForView: null,
-    freshPosts: null,
+    posts: {
+        list: null,
+        loading: false
+    },
+    postForView: {
+        post: null,
+        loading: false,
+    },
+    freshPosts: {
+        posts: null,
+        loading: false,
+    },
 }
 
+export const getPosts = createAsyncThunk(
+    'posts/fetchPosts',
+    async () => {
+        return await postsAPI.fetchPosts()
+    }
+)
+
+export const getFreshPosts = createAsyncThunk(
+    'posts/fetchFreshPosts',
+    async (limit) => {
+        return await postsAPI.fetchFreshPosts(limit)
+    }
+)
+
+export const getPostById = createAsyncThunk(
+    'posts/fetchById',
+    async (postId) => {
+        return await postsAPI.fetchById(postId)
+    }
+)
+
+
 export const postsSlice = createSlice({
-  name: 'posts',
-  initialState,
-  reducers: {
-    setPosts: (state, action) => {
-        state.posts = action.payload
+    name: 'posts',
+    initialState,
+    reducers: {
+        editPosts: (state, action) => {
+            // edit post
+        },
+        addPosts: (state, action) => {
+            // add new post by data
+        },
     },
-    editPosts: (state, action) => {
-        // edit post
+    extraReducers: (builder) => {
+        builder.addCase(getPostById.pending, (state, action) => {
+            state.postForView = {
+                post: null,
+                loading: true
+            }
+        })
+        builder.addCase(getPostById.fulfilled, (state, action) => {
+            state.postForView = {
+                post: action.payload,
+                loading: false
+            }
+        })
+        builder.addCase(getPosts.pending, (state, action) => {
+            state.posts = {
+                list: null,
+                loading: true
+            }
+        })
+        builder.addCase(getPosts.fulfilled, (state, action) => {
+            state.posts = {
+                list: action.payload,
+                loading: false
+            }
+        })
+        builder.addCase(getFreshPosts.pending, (state, action) => {
+            state.freshPosts = {
+                posts: null,
+                loading: true
+            }
+        })
+        builder.addCase(getFreshPosts.fulfilled, (state, action) => {
+            state.freshPosts = {
+                posts: action.payload,
+                loading: false
+            }
+        })
     },
-    getPosts: (state, action) => {
-        state.postForView = state.list.find((item) => item.id === action.payload)
-    },
-    getFreshPosts: (state) => {
-        state.freshPosts = state.list.slice(0,4)
-    },
-    addPosts: (state, action) => {
-        // add new post by data
-    },
-  },
 })
 
-export const { setPosts, editPosts, addPosts, getPosts, getFreshPosts } = postsSlice.actions
+export const {editPosts, addPosts } = postsSlice.actions
 
 export default postsSlice.reducer
