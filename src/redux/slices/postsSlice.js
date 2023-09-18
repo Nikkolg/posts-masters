@@ -43,7 +43,12 @@ export const postsSlice = createSlice({
     initialState,
     reducers: {
         editPosts: (state, action) => {
-            // edit post
+            state.posts.list = state.posts.list.map((post) => {
+                if(post.id === action.payload.id) {
+                    return action.payload
+                }
+                return post
+            })
         },
         addPosts: (state, action) => {
             const newPost = {...action.payload}
