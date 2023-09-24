@@ -1,20 +1,33 @@
-import React, { useEffect } from "react";
-import { useParams } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { redirect, useNavigate, useParams } from "react-router-dom";
 import { useSelector, useDispatch } from 'react-redux'
 import { Container } from "../../../components/Container";
 import { Typo } from "../../../components/Typo";
 import { Link } from "../../../components/Link";
-import { getPostById, showPost } from "../../../redux/slices/postsSlice";
+import { getPostById, showPost, deletePost } from "../../../redux/slices/postsSlice";
 import * as SC from "./styles"
 
 export const DetailPostPage = () => {
     const {id} = useParams()
+    const dispatch = useDispatch()
+    const navigate = useNavigate()
+
     const { list } = useSelector((state) => state.posts.posts)
     const postForView = useSelector((state) => state.posts.postForView)
-    const dispatch = useDispatch()
+
+    const [postForDelete, setPostForDelete] = useState(null)
+
     const { post } = postForView
 
     const image = postForView.image || 'https://cdnn11.img.sputnik.by/img/07e6/0a/1b/1068422950_0:0:1200:1200_1920x0_80_0_0_a51e00ed4439c72f67f64101ad1f61b6.jpg'
+
+    const onDeletePost = () => {
+        dispatch(deletePost(postForDelete))
+
+        setPostForDelete(null)
+
+        navigate("/posts")
+    }
 
     useEffect(() => {
         const intId = Number(id)
@@ -36,6 +49,17 @@ export const DetailPostPage = () => {
 
     return (
         <Container>
+            {postForDelete &&
+                <SC.ModalWrapper>
+                    <SC.Modal>
+                        <SC.ModalText>Вы уверены что хотите удалить публикацию c ID - {postForDelete.id}?</SC.ModalText>
+                        <SC.ModalContent>
+                            <SC.DeleteButton onClick={onDeletePost}>Да</SC.DeleteButton>
+                            <button onClick={() => setPostForDelete(null)}>Нет</button>
+                        </SC.ModalContent>
+                    </SC.Modal>
+                </SC.ModalWrapper>
+            }
             <Typo>{post.title}</Typo>
             <SC.Image src={image} alt={post.title}></SC.Image>
             <SC.Text>{post.body}</SC.Text>
@@ -43,6 +67,7 @@ export const DetailPostPage = () => {
             <SC.WrapperLink>
                 <Link to={'/posts'}>Обратно к публикациям</Link>
                 <Link to={`/posts/${post.id}/edit`}>Редактировать</Link>
+                <SC.DeleteButton onClick={() => setPostForDelete(post)}>Удалить</SC.DeleteButton>
             </SC.WrapperLink>
         </Container>
     )
