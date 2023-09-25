@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { redirect, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useSelector, useDispatch } from 'react-redux'
-import { Container } from "../../../components/Container";
-import { Typo } from "../../../components/Typo";
-import { Link } from "../../../components/Link";
+import { Container } from "../../../components/UI/Container";
+import { Typo } from "../../../components/UI/Typo";
+import { Link } from "../../../components/UI/Link";
 import { getPostById, showPost, deletePost } from "../../../redux/slices/postsSlice";
 import * as SC from "./styles"
 
