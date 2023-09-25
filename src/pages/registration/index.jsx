@@ -31,10 +31,10 @@ export const RegistrationPage = () => {
             }
 
             if (users.find((user) => (
-                user.name === formValues.name || user.email === formValues.email
+                user.name === user.email === formValues.email
             )
             )) {
-                alert('Пользователь с таким именем или email уже существует')
+                alert('Пользователь с таким email уже существует')
                 navigate('/auth')
                 return
             }
@@ -49,7 +49,7 @@ export const RegistrationPage = () => {
         }
     }
 
-    const disabled = !formValues.name || !formValues.password || !formValues.password;
+    const disabled = !formValues.name || !formValues.email || !formValues.password;
 
     return (
         <Container>
