@@ -5,6 +5,8 @@ import { Container } from "../../../components/UI/Container";
 import { Typo } from "../../../components/UI/Typo";
 import { Link } from "../../../components/UI/Link";
 import { getPostById, showPost, deletePost } from "../../../redux/slices/postsSlice";
+import { Modal } from "../../../components/UI/Modal";
+import { Button } from "../../../components/UI/Button";
 import * as SC from "./styles"
 
 export const DetailPostPage = () => {
@@ -54,13 +56,10 @@ export const DetailPostPage = () => {
         <Container>
             {postForDelete &&
                 <SC.ModalWrapper>
-                    <SC.Modal>
-                        <SC.ModalText>Вы уверены что хотите удалить публикацию c ID - {postForDelete.id}?</SC.ModalText>
-                        <SC.ModalContent>
-                            <SC.DeleteButton onClick={onDeletePost}>Да</SC.DeleteButton>
-                            <button onClick={() => setPostForDelete(null)}>Нет</button>
-                        </SC.ModalContent>
-                    </SC.Modal>
+                    <Modal text={`Вы уверены что хотите удалить публикацию c ID - ${postForDelete.id}?`}>
+                        <Button onClick={onDeletePost} className={'red'}>Да</Button>
+                        <Button onClick={() => setPostForDelete(null)}>Нет</Button>
+                    </Modal>
                 </SC.ModalWrapper>
             }
             <Typo>{post.title}</Typo>
@@ -70,7 +69,7 @@ export const DetailPostPage = () => {
             <SC.WrapperLink>
                 <Link to={'/posts'}>Обратно к публикациям</Link>
                 {showEditAndDeleteBtn && <Link to={`/posts/${post.id}/edit`}>Редактировать</Link>}
-                {showEditAndDeleteBtn &&<SC.DeleteButton onClick={() => setPostForDelete(post)}>Удалить</SC.DeleteButton>}
+                {showEditAndDeleteBtn &&<Button onClick={() => setPostForDelete(post)} className={'red'}>Удалить</Button>}
             </SC.WrapperLink>
         </Container>
     )

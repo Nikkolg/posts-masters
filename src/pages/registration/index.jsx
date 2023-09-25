@@ -5,6 +5,7 @@ import { Typo } from "../../components/UI/Typo"
 import { Form } from "../../components/UI/Form";
 import { Input } from "../../components/UI/Input";
 import { Field } from "../../components/UI/Field";
+import { Button } from "../../components/UI/Button";
 
 export const RegistrationPage = () => {
     const [formValues, setFormValues] = useState({name: '', email: '', password: ''})
@@ -30,10 +31,7 @@ export const RegistrationPage = () => {
                 return
             }
 
-            if (users.find((user) => (
-                user.name === user.email === formValues.email
-            )
-            )) {
+            if (users.find((user) => user.email === formValues.email)) {
                 alert('Пользователь с таким email уже существует')
                 navigate('/auth')
                 return
@@ -82,7 +80,7 @@ export const RegistrationPage = () => {
                         onChange={(e) => onChange(e.target.name, e.target.value)} 
                     />
                 </Field>
-                <button type="submit" disabled={disabled}>Регистрация</button>
+                <Button type="submit" disabled={disabled}>Регистрация</Button>
 
             </Form>
         </Container>
