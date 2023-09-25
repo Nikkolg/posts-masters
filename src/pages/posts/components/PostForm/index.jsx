@@ -4,6 +4,7 @@ import { Typo } from "../../../../components/UI/Typo"
 import { Form } from "../../../../components/UI/Form";
 import { Field } from "../../../../components/UI/Field";
 import { Input } from "../../../../components/UI/Input";
+import { Button } from "../../../../components/UI/Button";
 
 import * as SC from "./styles"
 
@@ -49,7 +50,7 @@ export const PostForm = ({title, onSubmitForm, defaultValues}) => {
                         onChange={(e) => onChange(e.target.name, e.target.value)}
                     />
                 </Field>
-                <SC.Button type="submit" disabled={disabled}>Сохранить</SC.Button>
+                <Button type="submit" disabled={disabled}>Сохранить</Button>
             </Form>
         </Container>
     )
