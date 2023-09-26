@@ -3,8 +3,8 @@ import { Outlet, useNavigate } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 import { Container } from "../UI/Container"
 import { logout } from "../../redux/slices/authSlice"
-import * as SC from "./styles";
 import { Button } from "../UI/Button";
+import * as SC from "./styles";
 
 export const Root = () => {
     const { user } = useSelector((state) => state.auth)

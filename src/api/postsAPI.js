@@ -1,4 +1,4 @@
-const limit = 10
+const limit = 15
 
 export const postsAPI = {
     fetchPosts() {

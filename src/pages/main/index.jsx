@@ -6,6 +6,8 @@ import { Typo } from "../../components/UI/Typo"
 import { getPosts } from "../../redux/slices/postsSlice";
 import { Loader } from "../../components/UI/Loader";
 
+const limitPostsOnMain = 3
+
 export const MainPage = () => {
     const dispatch = useDispatch()
     
@@ -32,7 +34,7 @@ export const MainPage = () => {
             {list && 
                 <>
                     <Typo>Свежии публикации</Typo>
-                    <Posts posts={list} />
+                    <Posts posts={list.slice(0, limitPostsOnMain)} />
                 </>
             }
             {post && 

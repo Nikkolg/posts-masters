@@ -10,6 +10,11 @@ const initialState = {
         post: null,
         loading: false,
     },
+    paginations: {
+        currentPage: 1,
+        totalPages: 0,
+    },
+    limitPostOnPage: 3,
 }
 
 export const getPosts = createAsyncThunk(
@@ -43,6 +48,10 @@ export const postsSlice = createSlice({
             const newPost = {...action.payload}
             newPost.id = new Date().getTime()
             state.posts.list = state.posts.list ? [newPost, ...state.posts.list] : [newPost]
+            
+            const { limitPostOnPage } = state;
+            const totalPosts = state.posts.list
+            state.paginations.totalPages = Math.ceil(totalPosts.length/limitPostOnPage);
         },
         showPost: (state, action) => {
             state.postForView = {
@@ -55,8 +64,15 @@ export const postsSlice = createSlice({
             state.postForView = {
                 post: null,
                 loading: false
-            } 
-        }
+            }
+
+            const { limitPostOnPage } = state;
+            const totalPosts = state.posts.list
+            state.paginations.totalPages = Math.ceil(totalPosts.length/limitPostOnPage);
+        },
+        setCurrentPage: (state, action) => {
+            state.paginations.currentPage = action.payload;
+        },
     },
     extraReducers: (builder) => {
         builder.addCase(getPostById.pending, (state, action) => {
@@ -82,10 +98,13 @@ export const postsSlice = createSlice({
                 list: action.payload,
                 loading: false
             }
+
+            const { limitPostOnPage } = state;
+            state.paginations.totalPages = Math.ceil(action.payload.length/limitPostOnPage);
         })
     },
 })
 
-export const {editPosts, addPosts, showPost, deletePost } = postsSlice.actions
+export const {editPosts, addPosts, showPost, deletePost, setCurrentPage} = postsSlice.actions
 
 export default postsSlice.reducer
