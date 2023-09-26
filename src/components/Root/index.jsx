@@ -22,7 +22,6 @@ export const Root = () => {
                 <SC.Menu>
                     <SC.MenuItem to={'/'}>Главная</SC.MenuItem>
                     <SC.MenuItem to={'/posts'}>Список постов</SC.MenuItem>
-                    <SC.MenuItem to={'/posts/add'}>Добавления поста</SC.MenuItem>
                     {!user && <SC.MenuItem to={'/auth'}>Авторизация</SC.MenuItem>}
                     {!user && <SC.MenuItem to={'/registration'}>Регистрация</SC.MenuItem>}
                     {user && <SC.MenuItem to={'/posts/add'}>Добавления поста</SC.MenuItem>}

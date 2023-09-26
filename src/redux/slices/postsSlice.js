@@ -10,23 +10,12 @@ const initialState = {
         post: null,
         loading: false,
     },
-    freshPosts: {
-        posts: null,
-        loading: false,
-    },
 }
 
 export const getPosts = createAsyncThunk(
     'posts/fetchPosts',
     async () => {
         return await postsAPI.fetchPosts()
-    }
-)
-
-export const getFreshPosts = createAsyncThunk(
-    'posts/fetchFreshPosts',
-    async (limit) => {
-        return await postsAPI.fetchFreshPosts(limit)
     }
 )
 
@@ -91,18 +80,6 @@ export const postsSlice = createSlice({
         builder.addCase(getPosts.fulfilled, (state, action) => {
             state.posts = {
                 list: action.payload,
-                loading: false
-            }
-        })
-        builder.addCase(getFreshPosts.pending, (state, action) => {
-            state.freshPosts = {
-                posts: null,
-                loading: true
-            }
-        })
-        builder.addCase(getFreshPosts.fulfilled, (state, action) => {
-            state.freshPosts = {
-                posts: action.payload,
                 loading: false
             }
         })
