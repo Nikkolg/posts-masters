@@ -4,6 +4,7 @@ import { Posts } from "../../components/Posts";
 import { Container} from "../../components/UI/Container"
 import { Typo } from "../../components/UI/Typo"
 import { getFreshPosts } from "../../redux/slices/postsSlice";
+import { Loader } from "../../components/UI/Loader";
 
 export const MainPage = () => {
     const dispatch = useDispatch()
@@ -17,7 +18,7 @@ export const MainPage = () => {
 
     return (
         <Container >
-            {loading && <Container><Typo>Loading...</Typo></Container>}
+            {loading && <Container><Loader /></Container>}
             {posts && 
                 <>
                     <Typo>Свежии публикации</Typo>

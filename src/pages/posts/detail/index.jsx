@@ -8,6 +8,7 @@ import { getPostById, showPost, deletePost } from "../../../redux/slices/postsSl
 import { Modal } from "../../../components/UI/Modal";
 import { Button } from "../../../components/UI/Button";
 import * as SC from "./styles"
+import { Loader } from "../../../components/UI/Loader";
 
 export const DetailPostPage = () => {
     const {id} = useParams()
@@ -45,7 +46,7 @@ export const DetailPostPage = () => {
     }, [id, list, dispatch])
 
     if (postForView.loading) {
-        return <Container><Typo>Loading...</Typo></Container>
+        return <Container><Loader /></Container>
     }
 
     if (!postForView.post || !postForView.post.hasOwnProperty('id')) {
