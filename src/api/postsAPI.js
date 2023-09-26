@@ -1,16 +1,9 @@
+const limit = 10
+
 export const postsAPI = {
     fetchPosts() {
         try {
-            return fetch('https://jsonplaceholder.typicode.com/posts/?_sort=id&_order=desc&_limit=3')
-                .then((response) => response.json())
-                .then((posts) => posts);
-        } catch (ex) {
-            console.log(ex);
-        }
-    },
-    fetchFreshPosts(limit = 3) {
-        try {
-            return fetch(`https://jsonplaceholder.typicode.com/posts/?_limit=${limit}&_sort=id&_order=desc`)
+            return fetch(`https://jsonplaceholder.typicode.com/posts/?_sort=id&_order=desc&_limit=${limit}`)
                 .then((response) => response.json())
                 .then((posts) => posts);
         } catch (ex) {
