@@ -13,8 +13,8 @@ const initialState = {
     paginations: {
         currentPage: 1,
         totalPages: 0,
-    },
-    limitPostOnPage: 3,
+        limitPostOnPage: 3,
+    }
 }
 
 export const getPosts = createAsyncThunk(
@@ -30,7 +30,6 @@ export const getPostById = createAsyncThunk(
         return await postsAPI.fetchById(postId)
     }
 )
-
 
 export const postsSlice = createSlice({
     name: 'posts',
@@ -49,7 +48,7 @@ export const postsSlice = createSlice({
             newPost.id = new Date().getTime()
             state.posts.list = state.posts.list ? [newPost, ...state.posts.list] : [newPost]
             
-            const { limitPostOnPage } = state;
+            const { limitPostOnPage } = state.paginations;
             const totalPosts = state.posts.list
             state.paginations.totalPages = Math.ceil(totalPosts.length/limitPostOnPage);
         },
@@ -66,12 +65,15 @@ export const postsSlice = createSlice({
                 loading: false
             }
 
-            const { limitPostOnPage } = state;
+            const { limitPostOnPage } = state.paginations;
             const totalPosts = state.posts.list
             state.paginations.totalPages = Math.ceil(totalPosts.length/limitPostOnPage);
         },
         setCurrentPage: (state, action) => {
             state.paginations.currentPage = action.payload;
+        },
+        setTotalPage: (state, action) => {
+            state.paginations.totalPages = action.payload;
         },
     },
     extraReducers: (builder) => {
@@ -99,12 +101,12 @@ export const postsSlice = createSlice({
                 loading: false
             }
 
-            const { limitPostOnPage } = state;
+            const { limitPostOnPage } = state.paginations;
             state.paginations.totalPages = Math.ceil(action.payload.length/limitPostOnPage);
         })
     },
 })
 
-export const {editPosts, addPosts, showPost, deletePost, setCurrentPage} = postsSlice.actions
+export const {editPosts, addPosts, showPost, deletePost, setCurrentPage, setTotalPage} = postsSlice.actions
 
 export default postsSlice.reducer

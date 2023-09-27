@@ -3,8 +3,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { Posts } from "../../components/Posts";
 import { Container} from "../../components/UI/Container"
 import { Typo } from "../../components/UI/Typo"
-import { getPosts } from "../../redux/slices/postsSlice";
 import { Loader } from "../../components/UI/Loader";
+import { getPosts } from "../../redux/slices/postsSlice";
 
 const limitPostsOnMain = 3
 

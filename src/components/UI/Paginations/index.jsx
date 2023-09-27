@@ -16,8 +16,6 @@ export const Paginations = () => {
     const handlePageClick = (page) => {
       dispatch(setCurrentPage(page));
     };
-
-    console.log(currentPage);
   
     return (
       <SC.WrapperPaginations>
