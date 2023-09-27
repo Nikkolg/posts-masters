@@ -4,11 +4,11 @@ import { useSelector, useDispatch } from 'react-redux'
 import { Container } from "../../../components/UI/Container";
 import { Typo } from "../../../components/UI/Typo";
 import { Link } from "../../../components/UI/Link";
-import { getPostById, showPost, deletePost } from "../../../redux/slices/postsSlice";
 import { Modal } from "../../../components/UI/Modal";
 import { Button } from "../../../components/UI/Button";
-import * as SC from "./styles"
 import { Loader } from "../../../components/UI/Loader";
+import { getPostById, showPost, deletePost } from "../../../redux/slices/postsSlice";
+import * as SC from "./styles"
 
 export const DetailPostPage = () => {
     const {id} = useParams()

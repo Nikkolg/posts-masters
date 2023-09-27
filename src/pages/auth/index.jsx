@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import { Container } from "../../components/UI/Container";
 import { Typo } from "../../components/UI/Typo";
 import { Input } from "../../components/UI/Input";
 import { Form } from "../../components/UI/Form";
 import { Field } from "../../components/UI/Field";
-import { useDispatch } from "react-redux";
-import { login } from "../../redux/slices/authSlice";
 import { Button } from "../../components/UI/Button";
+import { login } from "../../redux/slices/authSlice";
 
 export const AuthPage = () => {
     const [formValues, setFormValues] = useState({name: '', email: '', password: ''})

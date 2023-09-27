@@ -1,8 +1,7 @@
 import { styled } from "styled-components";
 
-export const Posts = styled.div`
-margin: 30px 0;
+export const WrapperFilterAndSort = styled.div`
     display: flex;
-    flex-wrap: wrap;
-    gap: 15px;
+    flex-direction: row;
+    justify-content: space-between;
 `
